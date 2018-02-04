@@ -110,3 +110,25 @@
                   :status :done
                   :value (str (p/max-sample-count)))))
        (catch Exception e  (send-exception e msg transport))))
+
+(defn handle-profile
+  [handler msg]
+  (let [{:keys [op] } msg]
+    (case op
+      "toggle-profile"
+      (toggle-profile msg)
+      "toggle-profile-ns"
+      (toggle-profile-ns msg)
+      "is-var-profiled"
+      (is-var-profiled msg)
+      "profile-summary"
+      (profile-summary msg)
+      "profile-var-summary"
+      (profile-var-summary msg)
+      "clear-profile"
+      (clear-profile msg)
+      "get-max-samples"
+      (get-max-samples msg)
+      "set-max-samples"
+      (set-max-samples msg)
+      (handler msg))))
